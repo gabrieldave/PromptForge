@@ -11,15 +11,19 @@ export function Sidebar() {
 
   const SidebarContent = () => (
     <div className="py-6 flex flex-col h-full">
-      <div className="px-6 mb-8">
+      <div className="px-6 mb-8 border-b border-sidebar-border/50 pb-6">
         <Link href="/">
           <a className="cursor-pointer group">
-            <h1 className="font-serif text-2xl font-bold text-primary flex items-center gap-2 group-hover:opacity-90 transition-opacity">
-              <span className="text-accent text-3xl">✦</span>
-              PromptMaster
-            </h1>
-            <p className="text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
-              Guía de Ingeniería de Prompts
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
+                <Wand2 className="w-5 h-5 text-white" />
+              </div>
+              <h1 className="font-serif text-2xl font-bold gradient-text">
+                PromptForge
+              </h1>
+            </div>
+            <p className="text-xs text-muted-foreground ml-13 font-medium">
+              Forja Prompts Perfectos
             </p>
           </a>
         </Link>
@@ -28,12 +32,19 @@ export function Sidebar() {
       <div className="px-4 mb-6">
         <Link href="/builder">
           <a className={cn(
-            "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all border shadow-sm",
+            "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all relative overflow-hidden group",
             location === "/builder" 
-              ? "bg-primary text-primary-foreground border-primary shadow-primary/20" 
-              : "bg-card text-card-foreground border-border hover:border-primary/50 hover:shadow-md"
+              ? "bg-gradient-to-r from-primary/20 to-accent/20 text-primary border border-primary/50 shadow-lg shadow-primary/20" 
+              : "bg-background/50 backdrop-blur-sm text-sidebar-foreground hover:bg-background/70 hover:text-primary border border-transparent hover:border-primary/30"
           )}>
-            <Wand2 className={cn("w-5 h-5", location === "/builder" ? "text-white" : "text-accent")} />
+            <div className={cn(
+              "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
+              location === "/builder" 
+                ? "bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30" 
+                : "bg-secondary group-hover:bg-primary/10"
+            )}>
+              <Wand2 className={cn("w-4 h-4", location === "/builder" ? "text-white" : "text-muted-foreground group-hover:text-primary")} />
+            </div>
             <span>Constructor de Prompts</span>
           </a>
         </Link>
@@ -46,12 +57,19 @@ export function Sidebar() {
         <div className="space-y-1">
           <Link href="/">
              <a className={cn(
-               "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors mb-2",
+               "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all mb-2",
                location === "/" && window.location.hash === ""
-                 ? "bg-primary/10 text-primary"
-                 : "text-muted-foreground hover:text-foreground hover:bg-accent/5"
+                 ? "bg-gradient-to-r from-primary/20 to-accent/20 text-primary border border-primary/30"
+                 : "text-muted-foreground hover:text-foreground hover:bg-background/50"
              )}>
-               <BookOpen className="w-4 h-4" />
+               <div className={cn(
+                 "w-6 h-6 rounded-md flex items-center justify-center",
+                 location === "/" && window.location.hash === ""
+                   ? "bg-gradient-to-br from-primary to-accent"
+                   : "bg-secondary"
+               )}>
+                 <BookOpen className={cn("w-3.5 h-3.5", location === "/" && window.location.hash === "" ? "text-white" : "text-muted-foreground")} />
+               </div>
                Inicio Guía
              </a>
           </Link>
@@ -61,13 +79,22 @@ export function Sidebar() {
               <Link href={`/#${section.id}`}>
                 <a
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors mb-2",
+                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all mb-2",
                     location === "/" && window.location.hash === `#${section.id}`
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent/5"
+                      ? "bg-gradient-to-r from-primary/20 to-accent/20 text-primary border border-primary/30"
+                      : "text-muted-foreground hover:text-foreground hover:bg-background/50"
                   )}
                 >
-                  {section.icon && <section.icon className="w-4 h-4" />}
+                  {section.icon && (
+                    <div className={cn(
+                      "w-6 h-6 rounded-md flex items-center justify-center",
+                      location === "/" && window.location.hash === `#${section.id}`
+                        ? "bg-gradient-to-br from-primary to-accent"
+                        : "bg-secondary"
+                    )}>
+                      <section.icon className={cn("w-3.5 h-3.5", location === "/" && window.location.hash === `#${section.id}` ? "text-white" : "text-muted-foreground")} />
+                    </div>
+                  )}
                   {section.title}
                 </a>
               </Link>
@@ -78,10 +105,10 @@ export function Sidebar() {
                     <Link key={sub.id} href={`/#${sub.id}`}>
                       <a
                         className={cn(
-                          "block px-3 py-1.5 text-xs transition-colors rounded-r-md border-l-2 border-transparent -ml-[1px]",
+                          "block px-3 py-1.5 rounded-md text-xs transition-all ml-4",
                           window.location.hash === `#${sub.id}`
-                            ? "text-primary font-semibold border-primary bg-primary/5"
-                            : "text-muted-foreground hover:text-foreground"
+                            ? "text-primary font-semibold bg-primary/10 border border-primary/30"
+                            : "text-muted-foreground hover:text-foreground hover:bg-background/30"
                         )}
                       >
                         {sub.title}
@@ -95,10 +122,10 @@ export function Sidebar() {
         </div>
       </ScrollArea>
 
-      <div className="mt-auto px-6 pt-6 border-t border-border">
-        <div className="text-xs text-muted-foreground">
-          <p>© 2025 PromptMaster</p>
-          <p className="mt-1 opacity-60">Versión 1.0.0</p>
+      <div className="mt-auto px-6 pt-6 border-t border-sidebar-border/50">
+        <div className="text-xs text-muted-foreground rounded-lg bg-background/30 backdrop-blur-sm p-3 border border-border/30">
+          <p>© 2025 PromptForge</p>
+          <p className="mt-1 opacity-60">Versión 2.0.0</p>
         </div>
       </div>
     </div>
@@ -107,7 +134,7 @@ export function Sidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block w-72 fixed inset-y-0 left-0 z-30 bg-sidebar border-r border-sidebar-border">
+      <aside className="hidden lg:block w-72 fixed inset-y-0 left-0 z-30 modern-sidebar">
         <SidebarContent />
       </aside>
 

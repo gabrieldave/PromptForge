@@ -115,12 +115,12 @@ export default function Guide() {
             Guía Maestra 2025
           </span>
           <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Domina el Arte del <br />
-            <span className="text-accent italic">Prompting</span>
+            PromptForge <br />
+            <span className="text-accent italic">El Constructor de Prompts Más Avanzado</span>
           </h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-2xl leading-relaxed">
-            Aprende a comunicarte con Gemini y ChatGPT como un experto. 
-            De respuestas vagas a resultados excepcionales.
+            Forja prompts perfectos con técnicas avanzadas de ingeniería. 
+            Few-shot, Chain of Thought, ReAct y más. Conviértete en un maestro del prompting.
           </p>
         </div>
       </section>
@@ -156,14 +156,14 @@ export default function Guide() {
       </div>
 
       <footer className="mt-24 py-12 border-t border-border text-center">
-        <h3 className="font-serif text-xl font-bold mb-4">¿Listo para practicar?</h3>
+        <h3 className="font-serif text-xl font-bold mb-4">¿Listo para forjar prompts perfectos?</h3>
         <p className="text-muted-foreground mb-8">
-          Usa estos conocimientos en tu próxima conversación con una IA.
+          Usa PromptForge para crear prompts profesionales con técnicas avanzadas.
         </p>
         <div className="flex justify-center gap-4">
-          <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
-            Comenzar a Practicar
-          </button>
+          <a href="/builder" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+            Ir al Constructor
+          </a>
         </div>
       </footer>
     </AppLayout>

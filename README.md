@@ -1,0 +1,61 @@
+# PromptForge ⚡
+
+**El Constructor de Prompts Más Avanzado del Mundo**
+
+Forja prompts perfectos con técnicas avanzadas de ingeniería profesional. Incluye Few-shot Learning, Chain of Thought, ReAct, Tree of Thoughts y más.
+
+## 🚀 Características
+
+- **Constructor Avanzado**: Crea prompts profesionales con técnicas de ingeniería
+- **Técnicas Avanzadas**: Few-shot, Chain of Thought, ReAct, Tree of Thoughts, Self-Consistency
+- **Configuración de Hiperparámetros**: Temperature, Top_P, Frequency/Presence Penalty
+- **Templates Profesionales**: Universal, Desarrollo, Contenido, Análisis, Legal, Creativo
+- **Validación Inteligente**: Sugerencias y validación en tiempo real
+- **Diseño Moderno**: Glassmorphism, gradientes vibrantes, animaciones suaves
+
+## 🛠️ Tecnologías
+
+- **Frontend**: React 19, TypeScript, Vite, Tailwind CSS
+- **Backend**: Express, Node.js
+- **UI**: Radix UI, Lucide Icons
+- **Deploy**: Vercel
+
+## 📦 Instalación
+
+```bash
+npm install
+```
+
+## 🏃 Desarrollo
+
+```bash
+npm run dev
+```
+
+El servidor se iniciará en `http://localhost:5000`
+
+## 🏗️ Build
+
+```bash
+npm run build
+```
+
+## 🚢 Deploy en Vercel
+
+1. Conecta tu repositorio a Vercel
+2. Vercel detectará automáticamente la configuración
+3. El proyecto se desplegará automáticamente
+
+### Variables de Entorno (Opcional)
+
+Si necesitas base de datos u otros servicios:
+- `DATABASE_URL` - URL de conexión a la base de datos
+
+## 📝 Licencia
+
+MIT
+
+## 👨‍💻 Autor
+
+PromptForge Team
+
