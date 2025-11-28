@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { guideContent } from "@/lib/guide-content";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Menu, Wand2, BookOpen } from "lucide-react";
 
 export function Sidebar() {
   const [location] = useLocation();
@@ -12,24 +12,57 @@ export function Sidebar() {
   const SidebarContent = () => (
     <div className="py-6 flex flex-col h-full">
       <div className="px-6 mb-8">
-        <h1 className="font-serif text-2xl font-bold text-primary flex items-center gap-2">
-          <span className="text-accent text-3xl">✦</span>
-          PromptMaster
-        </h1>
-        <p className="text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
-          Guía de Ingeniería de Prompts
-        </p>
+        <Link href="/">
+          <a className="cursor-pointer group">
+            <h1 className="font-serif text-2xl font-bold text-primary flex items-center gap-2 group-hover:opacity-90 transition-opacity">
+              <span className="text-accent text-3xl">✦</span>
+              PromptMaster
+            </h1>
+            <p className="text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">
+              Guía de Ingeniería de Prompts
+            </p>
+          </a>
+        </Link>
+      </div>
+
+      <div className="px-4 mb-6">
+        <Link href="/builder">
+          <a className={cn(
+            "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all border shadow-sm",
+            location === "/builder" 
+              ? "bg-primary text-primary-foreground border-primary shadow-primary/20" 
+              : "bg-card text-card-foreground border-border hover:border-primary/50 hover:shadow-md"
+          )}>
+            <Wand2 className={cn("w-5 h-5", location === "/builder" ? "text-white" : "text-accent")} />
+            <span>Constructor de Prompts</span>
+          </a>
+        </Link>
       </div>
 
       <ScrollArea className="flex-1 px-4">
-        <div className="space-y-6">
+        <div className="mb-4 px-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+          Guía Teórica
+        </div>
+        <div className="space-y-1">
+          <Link href="/">
+             <a className={cn(
+               "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors mb-2",
+               location === "/" && window.location.hash === ""
+                 ? "bg-primary/10 text-primary"
+                 : "text-muted-foreground hover:text-foreground hover:bg-accent/5"
+             )}>
+               <BookOpen className="w-4 h-4" />
+               Inicio Guía
+             </a>
+          </Link>
+          
           {guideContent.map((section) => (
             <div key={section.id}>
-              <Link href={`#${section.id}`}>
+              <Link href={`/#${section.id}`}>
                 <a
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors mb-2",
-                    location === `/${section.id}` || window.location.hash === `#${section.id}`
+                    location === "/" && window.location.hash === `#${section.id}`
                       ? "bg-primary/10 text-primary"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/5"
                   )}
@@ -39,10 +72,10 @@ export function Sidebar() {
                 </a>
               </Link>
 
-              {section.subsections && (
-                <div className="pl-9 space-y-1 border-l border-border/50 ml-4">
+              {section.subsections && location === "/" && (
+                <div className="pl-9 space-y-1 border-l border-border/50 ml-4 mb-4">
                   {section.subsections.map((sub) => (
-                    <Link key={sub.id} href={`#${sub.id}`}>
+                    <Link key={sub.id} href={`/#${sub.id}`}>
                       <a
                         className={cn(
                           "block px-3 py-1.5 text-xs transition-colors rounded-r-md border-l-2 border-transparent -ml-[1px]",
