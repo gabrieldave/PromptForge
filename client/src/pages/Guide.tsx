@@ -116,7 +116,9 @@ export default function Guide() {
           </span>
           <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
             PromptForge <br />
-            <span className="text-accent italic">El Constructor de Prompts Más Avanzado</span>
+            <span className="text-white italic inline-block px-6 py-3 rounded-lg bg-black/80 backdrop-blur-sm border-2 border-white/30 shadow-2xl">
+              El Constructor de Prompts Más Avanzado
+            </span>
           </h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-2xl leading-relaxed">
             Forja prompts perfectos con técnicas avanzadas de ingeniería. 
