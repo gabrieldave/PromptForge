@@ -391,21 +391,21 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
 
   return (
     <AppLayout>
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="font-serif text-4xl font-bold gradient-text flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
-                <Wand2 className="w-6 h-6 text-white" />
+      <div className="mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex-1">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold gradient-text flex items-center gap-2 sm:gap-3 mb-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30 flex-shrink-0">
+                <Wand2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              PromptForge
+              <span className="break-words">PromptForge</span>
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
               Constructor avanzado de prompts con técnicas de ingeniería profesional
             </p>
           </div>
-          <Badge variant="outline" className="text-sm px-4 py-2 border border-primary/30 bg-primary/10 backdrop-blur-sm">
-            <Zap className="w-4 h-4 mr-2 text-primary" />
+          <Badge variant="outline" className="text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 border border-primary/30 bg-primary/10 backdrop-blur-sm self-start sm:self-auto">
+            <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-primary" />
             v2.0 Pro
           </Badge>
         </div>
@@ -426,15 +426,15 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
         </Alert>
       )}
 
-      <div className="grid lg:grid-cols-12 gap-8">
+      <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
         {/* LEFT COLUMN: Inputs */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-4 sm:space-y-6">
           <Tabs defaultValue="basic" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-background/50 backdrop-blur-sm border border-border/50 rounded-xl p-1">
-              <TabsTrigger value="basic" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Básico</TabsTrigger>
-              <TabsTrigger value="technique" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Técnica</TabsTrigger>
-              <TabsTrigger value="hyperparams" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Hiperparámetros</TabsTrigger>
-              <TabsTrigger value="advanced" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Avanzado</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 bg-background/50 backdrop-blur-sm border border-border/50 rounded-xl p-1 gap-1">
+              <TabsTrigger value="basic" className="text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Básico</TabsTrigger>
+              <TabsTrigger value="technique" className="text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Técnica</TabsTrigger>
+              <TabsTrigger value="hyperparams" className="text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Hiperparámetros</TabsTrigger>
+              <TabsTrigger value="advanced" className="text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white data-[state=active]:shadow-lg">Avanzado</TabsTrigger>
             </TabsList>
 
             {/* BASIC TAB */}
@@ -446,7 +446,7 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
                   <div className="w-2 h-2 rounded-full bg-primary glow-primary" />
                   Plantilla Profesional
                 </Label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                   {professionalTemplates.map((t) => (
                     <button
                       key={t.id}
@@ -533,7 +533,7 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
                   </p>
                 </Card>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   <Card className="modern-card p-4 space-y-2">
                     <Label className="flex items-center gap-2 font-semibold">
                       <LayoutTemplate className="w-4 h-4 text-primary" />
@@ -571,7 +571,7 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
                   <div className="w-2 h-2 rounded-full bg-primary glow-primary" />
                   Técnica Avanzada de Ingeniería
                 </Label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6">
                   {techniques.map((t) => {
                     const isSelected = technique === t.id;
                     const colorClasses = {
@@ -847,8 +847,8 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
         </div>
 
         {/* RIGHT COLUMN: Preview */}
-        <div className="lg:col-span-5">
-          <div className="sticky top-8">
+        <div className="lg:col-span-5 order-first lg:order-last">
+          <div className="sticky top-4 sm:top-6 lg:top-8">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-serif text-xl font-bold">Vista Previa</h3>
               <div className="flex gap-2">
@@ -859,7 +859,7 @@ Nota: Estos parámetros deben configurarse en la API del modelo, no en el prompt
               </div>
             </div>
 
-            <Card className="modern-card bg-gradient-to-br from-card/90 to-card/70 text-foreground overflow-hidden flex flex-col min-h-[600px] relative border border-primary/20">
+            <Card className="modern-card bg-gradient-to-br from-card/90 to-card/70 text-foreground overflow-hidden flex flex-col min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] relative border border-primary/20">
               <div className="absolute inset-0 animated-gradient opacity-30" />
               
               <div className="bg-background/50 backdrop-blur-sm px-6 py-4 border-b border-border/50 flex items-center gap-3 relative z-10">

@@ -12,6 +12,8 @@ Forja prompts perfectos con técnicas avanzadas de ingeniería profesional. Incl
 - **Templates Profesionales**: Universal, Desarrollo, Contenido, Análisis, Legal, Creativo
 - **Validación Inteligente**: Sugerencias y validación en tiempo real
 - **Diseño Moderno**: Glassmorphism, gradientes vibrantes, animaciones suaves
+- **📱 PWA (Progressive Web App)**: Instalable, funciona offline, optimizado para móvil
+- **📱 Diseño Responsive**: Adaptado perfectamente para dispositivos móviles
 
 ## 🛠️ Tecnologías
 
@@ -39,6 +41,23 @@ El servidor se iniciará en `http://localhost:5000`
 ```bash
 npm run build
 ```
+
+## 📱 Configuración PWA
+
+PromptForge está configurado como PWA (Progressive Web App). Para completar la configuración:
+
+1. **Genera los iconos PWA (creativos y profesionales):**
+   - Abre `script/generar-iconos-pwa.html` en tu navegador
+   - Verás una vista previa de los iconos con diseño creativo
+   - Haz clic en "✨ Generar Todos los Iconos"
+   - Copia los archivos descargados a `client/public/`
+
+2. **Verifica la instalación:**
+   - Abre la app en Chrome/Edge
+   - Verás un botón de instalación en la barra de direcciones
+   - En Android/iOS: "Agregar a pantalla de inicio"
+
+Para más detalles, consulta [PWA_SETUP.md](./PWA_SETUP.md)
 
 ## 🚢 Deploy en Vercel
 

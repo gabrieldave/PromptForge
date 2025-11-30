@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 Generador de Iconos PWA - PromptForge</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(26, 26, 46, 0.8);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #8b5cf6, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 30px;
+    }
+    
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .icon-preview {
+      text-align: center;
+      background: rgba(139, 92, 246, 0.1);
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      transition: all 0.3s;
+    }
+    
+    .icon-preview:hover {
+      transform: translateY(-5px);
+      border-color: rgba(139, 92, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    }
+    
+    .icon-preview img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #8b5cf6, #a855f7);
+      padding: 10px;
+    }
+    
+    .icon-preview .size-label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
+    
+    button {
+      background: linear-gradient(135deg, #8b5cf6, #a855f7);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 20px auto;
+      display: block;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .info-box {
+      background: rgba(139, 92, 246, 0.1);
+      border-left: 4px solid #8b5cf6;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    
+    .info-box h3 {
+      margin-bottom: 10px;
+      color: #a855f7;
+    }
+    
+    .info-box ol {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    .info-box code {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    canvas {
+      display: none;
+    }
+    
+    .status {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+    
+    .status.success {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #4ade80;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Generador de Iconos PWA</h1>
+    <p class="subtitle">Crea iconos creativos para PromptForge - El Constructor de Prompts</p>
+    
+    <button onclick="generateAllIcons()">✨ Generar Todos los Iconos</button>
+    
+    <div class="preview-grid" id="preview"></div>
+    
+    <div class="status" id="status"></div>
+    
+    <div class="info-box">
+      <h3>📋 Instrucciones:</h3>
+      <ol>
+        <li>Haz clic en el botón "Generar Todos los Iconos"</li>
+        <li>Se descargarán automáticamente todos los iconos necesarios</li>
+        <li>Copia los archivos descargados a la carpeta <code>client/public/</code></li>
+        <li>Los iconos representan una varita mágica con efectos brillantes, perfecto para un constructor de prompts</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+    const primaryColor = '#8b5cf6';
+    const accentColor = '#a855f7';
+
+    function createIcon(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      
+      // Fondo con gradiente vibrante
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, primaryColor);
+      gradient.addColorStop(1, accentColor);
+      
+      // Fondo redondeado (squircle effect)
+      const radius = size * 0.2;
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.moveTo(radius, 0);
+      ctx.lineTo(size - radius, 0);
+      ctx.quadraticCurveTo(size, 0, size, radius);
+      ctx.lineTo(size, size - radius);
+      ctx.quadraticCurveTo(size, size, size - radius, size);
+      ctx.lineTo(radius, size);
+      ctx.quadraticCurveTo(0, size, 0, size - radius);
+      ctx.lineTo(0, radius);
+      ctx.quadraticCurveTo(0, 0, radius, 0);
+      ctx.closePath();
+      ctx.fill();
+      
+      // Sombra interna para profundidad
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+      ctx.shadowBlur = size * 0.05;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = size * 0.02;
+      
+      // Dibujar varita mágica creativa
+      drawCreativeWand(ctx, size);
+      
+      return canvas;
+    }
+
+    function drawCreativeWand(ctx, size) {
+      const centerX = size / 2;
+      const centerY = size / 2;
+      const scale = size / 100;
+      
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.scale(scale, scale);
+      
+      // Sombra de la varita
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.3)';
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      
+      // Palo de la varita (más grueso y elegante)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.lineWidth = 4.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      
+      ctx.beginPath();
+      ctx.moveTo(-22, 10);
+      ctx.lineTo(22, -10);
+      ctx.stroke();
+      
+      // Efecto de brillo en el palo
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-22, 10);
+      ctx.lineTo(22, -10);
+      ctx.stroke();
+      
+      // Punta de la varita (brillante y con efecto glow)
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+      ctx.shadowBlur = 12;
+      
+      // Círculo exterior brillante
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.beginPath();
+      ctx.arc(22, -10, 7, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Círculo interior más brillante
+      ctx.shadowBlur = 6;
+      ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+      ctx.beginPath();
+      ctx.arc(22, -10, 4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Punto central ultra brillante
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+      ctx.beginPath();
+      ctx.arc(22, -10, 2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Sparkles/estrellas mejoradas alrededor
+      const sparkles = [
+        { x: -28, y: -6, size: 2.8, opacity: 0.9 },
+        { x: 18, y: -22, size: 2.2, opacity: 0.85 },
+        { x: 28, y: 6, size: 2.2, opacity: 0.85 },
+        { x: -15, y: -18, size: 1.8, opacity: 0.7 },
+        { x: 12, y: 15, size: 1.8, opacity: 0.7 }
+      ];
+      
+      sparkles.forEach((sparkle) => {
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
+        ctx.shadowBlur = 6;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${sparkle.opacity})`;
+        ctx.lineWidth = sparkle.size;
+        ctx.lineCap = 'round';
+        
+        // Cruz de la estrella
+        ctx.beginPath();
+        ctx.moveTo(sparkle.x, sparkle.y - 5);
+        ctx.lineTo(sparkle.x, sparkle.y + 5);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(sparkle.x - 5, sparkle.y);
+        ctx.lineTo(sparkle.x + 5, sparkle.y);
+        ctx.stroke();
+        
+        // Punto central de la estrella
+        ctx.shadowBlur = 3;
+        ctx.fillStyle = `rgba(255, 255, 255, ${sparkle.opacity})`;
+        ctx.beginPath();
+        ctx.arc(sparkle.x, sparkle.y, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      
+      // Efectos de partículas mágicas (puntos pequeños)
+      const particles = [
+        { x: -18, y: -12, size: 1.2 },
+        { x: 8, y: -15, size: 1 },
+        { x: 15, y: 8, size: 1 },
+        { x: -10, y: 12, size: 1.2 }
+      ];
+      
+      particles.forEach((particle) => {
+        ctx.shadowBlur = 4;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      
+      ctx.restore();
+    }
+
+    function downloadIcon(canvas, size) {
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `icon-${size}x${size}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 'image/png', 1.0);
+    }
+
+    function generateAllIcons() {
+      const preview = document.getElementById('preview');
+      const status = document.getElementById('status');
+      preview.innerHTML = '';
+      
+      let generated = 0;
+      
+      sizes.forEach((size, index) => {
+        setTimeout(() => {
+          const canvas = createIcon(size);
+          downloadIcon(canvas, size);
+          
+          // Mostrar preview
+          const div = document.createElement('div');
+          div.className = 'icon-preview';
+          const img = document.createElement('img');
+          img.src = canvas.toDataURL('image/png');
+          div.appendChild(img);
+          const label = document.createElement('div');
+          label.className = 'size-label';
+          label.textContent = `${size}×${size}`;
+          div.appendChild(label);
+          preview.appendChild(div);
+          
+          generated++;
+          if (generated === sizes.length) {
+            status.className = 'status success';
+            status.textContent = `✅ ¡${generated} iconos generados exitosamente! Revisa tus descargas.`;
+          }
+        }, index * 200); // Espaciar las descargas
+      });
+    }
+
+    // Generar previews al cargar
+    window.addEventListener('load', () => {
+      const preview = document.getElementById('preview');
+      sizes.forEach(size => {
+        const canvas = createIcon(size);
+        const div = document.createElement('div');
+        div.className = 'icon-preview';
+        const img = document.createElement('img');
+        img.src = canvas.toDataURL('image/png');
+        div.appendChild(img);
+        const label = document.createElement('div');
+        label.className = 'size-label';
+        label.textContent = `${size}×${size}`;
+        div.appendChild(label);
+        preview.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>
+
